@@ -1,22 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
-double square(double base) {
-	return base * base;
-}
 
-double getLength(double Ax, double Ay, double Bx, double By) {
-	return sqrt(square(Ax - Bx) + square(Ay - By));
-}
-
-double getCircum(double len1, double len2, double len3) {
-	return len1 + len2 + len3;
-}
-
-double getArea(double len1, double len2, double len3) {
-	double halfCircum = getCircum(len1, len2, len3) / 2.0; 
-	return sqrt(halfCircum * (halfCircum - len1) * (halfCircum - len2) * (halfCircum - len3));
-}
 
 int main() {
 	double Ax, Ay, Bx, By, Cx, Cy;
@@ -31,23 +16,24 @@ int main() {
 	scanf("%lf %lf", &Cx, &Cy);
 
 	double ab_len, bc_len, ca_len;
-	ab_len = getLength(Ax, Ay, Bx, By);
-	bc_len = getLength(Bx, By, Cx, Cy);
-	ca_len = getLength(Cx, Cy, Ax, Ay);
+	ab_len = sqrt((Ax - Bx)*(Ax - Bx) + (Ay - By)*(Ay - By));
+	bc_len = sqrt((Bx - Cx)*(Bx - Cx) + (By - Cy)*(By - Cy));
+	ca_len = sqrt((Cx - Ax)*(Cx - Ax) + (Cy - Ay)*(Cy - Ay));
 
-	printf("Length of AB is %lf\n", ab_len);
+	printf("Length of AB is %0.3lf\n", ab_len);
 	
-	printf("Length of BC is %lf\n", bc_len);
+	printf("Length of BC is %0.3lf\n", bc_len);
 	
-	printf("Length of CA is %lf\n", ca_len);
+	printf("Length of CA is %0.3lf\n", ca_len);
 
 
 	double circum, area; 
-	circum = getCircum(ab_len, bc_len, ca_len);
-	printf("Circumference is %lf\n", circum);
+	circum = ab_len + bc_len + ca_len;
 
-	area = getArea(ab_len, bc_len, ca_len);
-	printf("Area is %lf\n", area);
+	printf("Circumference is %0.3lf\n", circum);
+	double halfCircum = circum / 2.0;
+
+	area = sqrt(halfCircum * (halfCircum - ab_len) * (halfCircum - bc_len) * (halfCircum - ca_len));
+	printf("Area is %0.3lf\n", area);
 }
-
 
