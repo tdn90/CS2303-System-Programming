@@ -1,7 +1,7 @@
+/* triangle.c -- Written by Kevin Nguyen */
+
 #include <stdio.h>
 #include <math.h>
-
-
 
 int main() {
 	double Ax, Ay, Bx, By, Cx, Cy;
