@@ -43,6 +43,8 @@
 //     The precise labelling of the axes may be a bit different than this
 //     example. 
 
+
+// Just add a comment to test out makefile
 #ifndef INTARRAY_H
 #define INTARRAY_H
 #include <stdio.h>

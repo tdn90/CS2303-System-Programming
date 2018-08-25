@@ -16,7 +16,7 @@
 CFLAGS = -g
 
 sinewave: intarray.o sinewave.o
-	gcc $(CFLAGS) -m32 -Wall -lm sinewave.o intarray.o -o sinewave 
+	gcc $(CFLAGS) -m32 -Wall sinewave.o intarray.o -o sinewave -lm
 
 intarray.o: intarray.h intarray.c
 	gcc $(CFLAGS) -m32 -Wall -c intarray.c
