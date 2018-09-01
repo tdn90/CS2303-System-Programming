@@ -3,7 +3,6 @@
 This CLI (Command Line Interface) program will display a twelve month calendar for an arbitrary year after year 1582. 
 
 ## How to run this program
-------
 1. Compile the program by typing the following command on the command prompt (BASH): 
 
     `cc -Wall PA1.c -o printCalendar`
@@ -19,17 +18,14 @@ This CLI (Command Line Interface) program will display a twelve month calendar f
 5. Enjoy!
 
 ## Dependency
-------
 The header file <stdio.h> provides the prototypes (interfaces) for the functions printf() and scanf().
 
 ## Assumptions and Restrictions
-------
 The Gregorian Calendar was first introduced by Pope Gregory XIII in the year 1582, so 1583 was the first full year it was in effect.
 
 Therefore, the user may enter any strictly positive integer greater than 1582 for the year; if the user enters a number <= 1582, this program will print an informative error message and exit. 
 
 ## How it works
-------
 1. Determine the leap year:
 
     To determine whether a year is a leap year, follow these steps: 
@@ -63,7 +59,6 @@ Therefore, the user may enter any strictly positive integer greater than 1582 fo
 
 
 ## Cited Source
-------
 1. [Determine the leap year](https://support.microsoft.com/en-us/help/214019/method-to-determine-whether-a-year-is-a-leap-year)
    
 2. [Determine the first day of the year](http://mathforum.org/dr.math/faq/faq.calendar.html)
