@@ -23,7 +23,7 @@ The header file <stdio.h> provides the prototypes (interfaces) for the functions
 ## Assumptions and Restrictions
 The Gregorian Calendar was first introduced by Pope Gregory XIII in the year 1582, so 1583 was the first full year it was in effect.
 
-Therefore, the user may enter any strictly positive integer greater than 1582 for the year; if the user enters a number <= 1582, this program will print an informative error message and exit. 
+Therefore, the user may enter any strictly positive integer greater than 1582 for the year; if the user enters a number less than 1583, this program will print an informative error message and exit. 
 
 ## How it works
 1. Determine the leap year:
@@ -43,11 +43,18 @@ Therefore, the user may enter any strictly positive integer greater than 1582 fo
     `f = (k + [(13*m-1)/5] + D + [D/4] + [C/4] - 2*C) % 7`
 
     where
-
+    - f is the day_code 
     - k is the day of the month. Let's use January 29, 2064 as an example. For this date, k = 29.
     - m is the month number. Months have to be counted specially for Zeller's Rule: March is 1, April is 2, and so on to February, which is 12. (This makes the formula simpler, because on leap years February 29 is counted as the last day of the year.)
-    - D is the last two digits of the year. Mind that if the month used is January or February, we would use the last two digits of the year minus 1.
-    - C stands for century: it's the first two digits of the year.
+    - D is the last two digits of the year. Mind that if the month used is January or February, we would use the last two digits of the (year minus 1) to fit Zeller's Rule.
+    - C stands for century: it's the first two digits of the year (again, after minus 1)
+
+    Day_code is assigned according to this table:
+
+    | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+    |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+    | 0   | 1   | 2   | 3   | 4   | 5   |  6  |
+
 
 
 3. Internal Logic:
