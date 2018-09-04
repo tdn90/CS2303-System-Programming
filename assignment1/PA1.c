@@ -76,14 +76,15 @@ int main() {
  * @author: Dung (Kevin) Nguyen
  */
 int getJan1(int year) {
-	int num_day, zeller_month, year_code, century; 
+	int num_day, zeller_month, year_code, century, result; 
 
 	num_day = 1; // First day of the month
 	zeller_month = 11; // According to Zeller's Rule, the month code for January is 11
-	year_code = year % 100 - 1; // Last two digit of the year - 1
-	century = year / 100;
+	year_code = (year-1) % 100; // Last two digit of the year, again, according to Zeller's Rule
+	century = (year-1) / 100;
 
-	return (num_day + ((13 * zeller_month - 1) / 5) + year_code + (year_code / 4) + (century / 4) - 2 * century) % 7;
+	result = (num_day + ((13 * zeller_month - 1) / 5) + year_code + (year_code / 4) + (century / 4) - 2 * century) % 7;
+	return result >= 0 ? result : result + 7;
 }
 
 /**
