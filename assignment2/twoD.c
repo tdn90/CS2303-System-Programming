@@ -155,3 +155,19 @@ int getMaxLineLength(FILE *fp) {
 	return max;
 }
 
+/**
+ * Fill up empty spots in the grid
+ * @array given grid
+ * @nrows number of rows
+ * @ncolumns number of columns
+ */
+void fillUpGrid(char **array, int nrows, int ncolumns) {
+	for (int row = 0; row < nrows; row++) {
+		for (int col = 0; col < ncolumns; col++) {
+			if(*(*(array + row) + col) == '+') {
+				*(*(array + row) + col) = 'o';
+			}
+		}
+	}
+}
+
