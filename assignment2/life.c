@@ -24,6 +24,7 @@ int main(int argc, char **argv) {
 	int doPause; // 1 if user wants to pause after each generation, 0 if not
 	char **gridA; // A 2D array to hold the pattern
 
+
 	// See if there are the right number of arguments on the command line
 	if ((argc < 5) || (argc > 7)) {
 		// If not, tell the user what to enter.
@@ -51,11 +52,13 @@ int main(int argc, char **argv) {
 	}
 	else doPrint = 0;
 
-	/* Here is how you would allocate an array to hold the grid.
-	*/
+	// Allocate an array to hold the grid.
 	gridA = make2Dchar(nrows, ncolumns);
-	// You should check that it succeeded.
-
+	// Check if memory allocation succeeded.
+	if (gridA == (char **) NULL) {
+		printf("Unable to allocate memory for the grid.\n");
+		return EXIT_FAILURE;
+	}
 
 	/* Eventually, need to try to open the input file.
 	*/
