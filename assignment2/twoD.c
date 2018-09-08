@@ -106,3 +106,29 @@ void fillInitGrid(char **array, int nrows, int ncolumns, char initVal) {
 	}
 }
 
+/**
+ *TODO: if a line > the width (columns) then trigger an error
+ * Set grid according to configurations given in file
+ * @array given grid
+ * @nrows number of rows
+ * @ncolumns number of columns
+ * @fp pointer to the given file
+ */
+void setGridFromFile(char **array, int nrows, int ncolumns, FILE *fp) {
+	int c;
+	int curCol = 0;
+	int curRow = 0;
+	do {
+		c = fgetc(fp);
+		if (feof(fp)) break;
+		if (c == '\n') {
+			curRow++;
+			curCol = 0;
+		}
+		else {
+			*(*(array + curRow) + curCol) = c;
+			curCol++;
+		}
+	} while (curRow < nrows && curCol <= ncolumns);
+}
+
