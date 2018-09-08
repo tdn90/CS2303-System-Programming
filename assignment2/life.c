@@ -42,6 +42,17 @@ int main(int argc, char **argv) {
 	gens = atoi(argv[3]);
 	inputFileName = argv[4];
 
+	if (argc > 5) { // [print] is provided
+		doPrint = (*argv[5] == 'y' ? 1 : 0);
+		if (argc == 7) { // [pause is provided]
+			doPause = (*argv[6] == 'y' ? 1 : 0);
+		}
+		else doPause = 0;
+	}
+	else doPrint = 0;
+
+	printf("%d", doPrint);
+	printf("%d", doPause);
 
 	/* Here is how you would allocate an array to hold the grid.
 	*/
