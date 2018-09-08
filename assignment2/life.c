@@ -5,6 +5,22 @@
 #include <stdlib.h>
 #include "twoD.h"
 
+/**
+ * @array given grid
+ * @nrows number of rows
+ * @ncolumns number of columns
+ */
+int gridMalloc(char **array, int nrows, int ncolumns) {
+	// Allocate an array to hold the grid.
+	array = make2Dchar(nrows, ncolumns);
+	// Check if memory allocation succeeded.
+	if (array == (char **) NULL) {
+		printf("Unable to allocate memory for the grid.\n");
+		return EXIT_FAILURE;
+	}
+	return 0;
+}
+
 /** Main function.
  * @param argc Number of words on the command line.
  * @param argv Array of pointers to character strings containing the
@@ -23,7 +39,7 @@ int main(int argc, char **argv) {
 	int doPrint; // 1 if user wants to print each generation, 0 if not
 	int doPause; // 1 if user wants to pause after each generation, 0 if not
 	char **gridA; // A 2D array to hold the pattern
-
+	char **gridB; // 2D array to hold the pattern (centered)
 
 	// See if there are the right number of arguments on the command line
 	if ((argc < 5) || (argc > 7)) {
@@ -52,11 +68,13 @@ int main(int argc, char **argv) {
 	}
 	else doPrint = 0;
 
-	// Allocate an array to hold the grid.
-	gridA = make2Dchar(nrows, ncolumns);
-	// Check if memory allocation succeeded.
-	if (gridA == (char **) NULL) {
-		printf("Unable to allocate memory for the grid.\n");
+	// Allocate memory for gridA
+	if (gridMalloc(gridA, nrows, ncolumns) == EXIT_FAILURE) {
+		return EXIT_FAILURE;
+	}
+
+	// Allocate memory for gridB
+	if (gridMalloc(gridB, nrows, ncolumns) == EXIT_FAILURE) {
 		return EXIT_FAILURE;
 	}
 
@@ -72,6 +90,7 @@ int main(int argc, char **argv) {
 	 * You can read one line at a time using fgets().
 	 * You can read from standard input (the keyboard) with getchar().
 	*/
+
 
 	return EXIT_SUCCESS;
 }
