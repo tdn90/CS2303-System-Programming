@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "twoD.h"
 
+// TODO Remove afterwards
 /** Make a 2D array of integers (this is an example)
  *
  * @param nrows Number of rows
@@ -35,13 +36,35 @@ int** make2Dint(int nrows, int ncolumns) {
 	return a;
 }
 
-/**
- * You need to fill in this function and its header comment.
- * It should be quite similar to make2Dint
+/** Make a 2D array of characters
+ *
+ * @param nrows Number of rows
+ * @param ncolumns Number of columns
+ * @return Pointer to the array of pointers to the rows.
+ * 	  or null pointer if unable to allocate memory.
+ * 	  Note: Will not free partially-allocated memory.
+ *
+ * @author Dung (Kevin) Nguyen
  */
 char** make2Dchar(int nrows, int ncolumns) {
 
 	char **a; // Array of pointers to rows
-	a = (char**) NULL; // Replace this...
+	unsigned int i; // Loop counter
+
+	// First allocate the array of pointers to rows
+	a = (char **) malloc(nrows * sizeof(char *));
+	if (!a) { // Unable to allocate the array
+		return (char **) NULL;
+	}
+
+	// Now allocate array for each row
+	for (i = 0; i < nrows; i++) {
+		// i is the row we are about to allocate
+		a[i] = malloc(ncolumns * sizeof(char));
+		if (!a[i]) {
+			return (char **) NULL; // Unable to allocate
+		}
+	}
+
 	return a;
 }
