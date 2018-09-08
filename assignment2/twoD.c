@@ -185,3 +185,26 @@ void fillUpGrid(char **array, int nrows, int ncolumns) {
 	}
 }
 
+/**
+ * @original original grid
+ * @centered centered grid
+ * @nrows number of rows
+ * @ncolumns number of columns
+ * @maxWidth maxWidth of grid given in file
+ * @maxHeight max height of grid given in file
+ */
+void centerGrid(char **original, char **centered, int nrows, int ncolumns, int maxWidth, int maxHeight) {
+	int horizontalDiff = ncolumns - maxWidth;
+	int verticalDiff = nrows - maxHeight;
+
+	int topPadding = verticalDiff / 2;
+	int leftPadding = horizontalDiff / 2;
+
+	for (int row = 0; row < maxHeight; row++) {
+		for (int col = 0; col < maxWidth; col++) {
+			*(*(centered + row + topPadding) + col + leftPadding) =
+					*(*(original + row) + col);
+		}
+	}
+}
+
