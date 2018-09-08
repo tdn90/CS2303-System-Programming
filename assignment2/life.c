@@ -51,9 +51,6 @@ int main(int argc, char **argv) {
 	}
 	else doPrint = 0;
 
-	printf("%d", doPrint);
-	printf("%d", doPause);
-
 	/* Here is how you would allocate an array to hold the grid.
 	*/
 	gridA = make2Dchar(nrows, ncolumns);
