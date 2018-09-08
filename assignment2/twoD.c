@@ -87,3 +87,22 @@ int getCellVal(char **array, int nrows, int ncolumns, int row, int col) {
 	}
 	else return 0;
 }
+
+
+
+
+/**
+ * Fill grid with some initial values other than 'x' or 'o'
+ * @array given grid
+ * @nrows number of rows
+ * @ncolumns number of columns
+ * @initVal initial value to be set for each cell in grid
+ */
+void fillInitGrid(char **array, int nrows, int ncolumns, char initVal) {
+	for (int row = 0; row < nrows; row++) {
+		for (int col = 0; col < ncolumns; col++) {
+			*(*(array + row) + col) = initVal;
+		}
+	}
+}
+
