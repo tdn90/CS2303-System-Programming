@@ -1,25 +1,9 @@
 /* Game of Life
-*/
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "twoD.h"
-
-/**
- * @array given grid
- * @nrows number of rows
- * @ncolumns number of columns
- */
-int gridMalloc(char **array, int nrows, int ncolumns) {
-	// Allocate an array to hold the grid.
-	array = make2Dchar(nrows, ncolumns);
-	// Check if memory allocation succeeded.
-	if (array == (char **) NULL) {
-		printf("Unable to allocate memory for the grid.\n");
-		return EXIT_FAILURE;
-	}
-	return 0;
-}
 
 /** Main function.
  * @param argc Number of words on the command line.
@@ -50,10 +34,10 @@ int main(int argc, char **argv) {
 	}
 
 	/* Save the command-line arguments.
-	   Also need to check if print and/or pause arguments were entered,
-	   and if so, what they were.
-	   A switch statement might be handy here.
-	*/
+	 Also need to check if print and/or pause arguments were entered,
+	 and if so, what they were.
+	 A switch statement might be handy here.
+	 */
 	nrows = atoi(argv[1]); // Convert from character string to integer.
 	ncolumns = atoi(argv[2]);
 	gens = atoi(argv[3]);
@@ -63,23 +47,29 @@ int main(int argc, char **argv) {
 		doPrint = (*argv[5] == 'y' ? 1 : 0);
 		if (argc == 7) { // [pause is provided]
 			doPause = (*argv[6] == 'y' ? 1 : 0);
-		}
-		else doPause = 0;
-	}
-	else doPrint = 0;
+		} else
+			doPause = 0;
+	} else
+		doPrint = 0;
 
 	// Allocate memory for gridA
-	if (gridMalloc(gridA, nrows, ncolumns) == EXIT_FAILURE) {
+	gridA = make2Dchar(nrows, ncolumns);
+	// Check if memory allocation succeeded.
+	if (gridA == (char **) NULL) {
+		printf("Unable to allocate memory for the grid.\n");
 		return EXIT_FAILURE;
 	}
 
 	// Allocate memory for gridB
-	if (gridMalloc(gridB, nrows, ncolumns) == EXIT_FAILURE) {
+	gridB = make2Dchar(nrows, ncolumns);
+	// Check if memory allocation succeeded.
+	if (gridB == (char **) NULL) {
+		printf("Unable to allocate memory for the grid.\n");
 		return EXIT_FAILURE;
 	}
 
 	/* Eventually, need to try to open the input file.
-	*/
+	 */
 	input = fopen(inputFileName, "r");
 	if (!input) {
 		printf("Unable to open input file: %s\n", inputFileName);
@@ -89,8 +79,21 @@ int main(int argc, char **argv) {
 	/*Once opened, you can read from the file one character at a time with fgetc().
 	 * You can read one line at a time using fgets().
 	 * You can read from standard input (the keyboard) with getchar().
-	*/
+	 */
 
+	fillInitGrid(gridA, nrows, ncolumns, '+');
+	fillInitGrid(gridB, nrows, ncolumns, '-');
+	setGridFromFile(gridA, nrows, ncolumns, input);
+
+	rewind(input); //Put the pointer to the beginning of the file again
+	fillUpGrid(gridA, nrows, ncolumns);
+	int maxHeight = getNumLines(input);
+
+	rewind(input);
+	int maxWidth = getMaxLineLength(input);
+
+	centerGrid(gridA, gridB, nrows, ncolumns, maxWidth, maxHeight);
+	print2DArray(gridB, nrows, ncolumns);
 
 	return EXIT_SUCCESS;
 }
