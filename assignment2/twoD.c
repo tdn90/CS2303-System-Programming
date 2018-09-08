@@ -68,3 +68,20 @@ char** make2Dchar(int nrows, int ncolumns) {
 
 	return a;
 }
+
+/**
+ * Print out the 2D array to the console
+ * @array given grid
+ * @nrows number of rows
+ * @ncolumns number of columns
+ *
+ * @author: Dung (Kevin) Nguyen
+ */
+void print2DArray(char **array, int nrows, int ncolumns) {
+	for (int row = 0; row < nrows; row++) {
+		for (int col = 0; col < ncolumns; col++) {
+			printf("%c ", *(*(array + row) + col));
+		}
+		printf("\n");
+	}
+}
