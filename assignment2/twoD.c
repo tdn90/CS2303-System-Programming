@@ -156,6 +156,20 @@ int getMaxLineLength(FILE *fp) {
 }
 
 /**
+ * Get number of lines
+ * @fp pointer to the given file
+ */
+int getNumLines(FILE *fp) {
+	int c;
+		int numLine = 0;
+
+		while ((c = fgetc(fp)) != EOF) {
+			if (c == '\n') numLine++;
+		}
+		return numLine;
+}
+
+/**
  * Fill up empty spots in the grid
  * @array given grid
  * @nrows number of rows
