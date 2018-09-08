@@ -85,3 +85,30 @@ void print2DArray(char **array, int nrows, int ncolumns) {
 		printf("\n");
 	}
 }
+
+/**
+ * Get the total number of neighbors of a given cell
+ * @array given grid
+ * @nrows number of rows
+ * @ncolumns number of columns
+ * @currentR given cell's row
+ * @currentC given cell's column
+ */
+int getNeighbors(char **array, int nrows, int ncolumns, int currentR, int currentC) {
+	int neighbors = 0;
+	for (int row = currentR - 1; row <= currentR + 1; row++) {
+		for (int col = currentC - 1; col <= ncolumns + 1; col++) {
+			if (row != currentR && col != currentC) {
+				neighbors += getCellVal(array, nrows, ncolumns, currentR, currentC);
+			}
+		}
+	}
+	return neighbors;
+}
+
+int getCellVal(char **array, int nrows, int ncolumns, int row, int col) {
+	if (row >= 0 && row < nrows && col >= 0 && col < ncolumns) {
+		return *(*(array + row) + col) == 'x' ? 1 : 0;
+	}
+	else return 0;
+}
