@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "twoD.h"
+#include "gridConfig.h"
 
 /** Make a 2D array of characters
  *
@@ -13,7 +14,6 @@
  * @author Dung (Kevin) Nguyen
  */
 char** make2Dchar(int nrows, int ncolumns) {
-
 	char **a; // Array of pointers to rows
 	unsigned int i; // Loop counter
 
@@ -31,8 +31,21 @@ char** make2Dchar(int nrows, int ncolumns) {
 			return (char **) NULL; // Unable to allocate
 		}
 	}
-
 	return a;
+}
+
+/**
+ * Free memory allocated for given grid to preserve memory
+ * @array given grid
+ * @nrows number of rows
+ *
+ * @author: Dung (Kevin) Nguyen
+ */
+void free2DGrid(char **array, int nrows) {
+	for (unsigned int row = 0; row < nrows; row++) {
+		free(*(array + row));
+	}
+	free(array);
 }
 
 /**
@@ -46,7 +59,7 @@ char** make2Dchar(int nrows, int ncolumns) {
 void print2DArray(char **array, int nrows, int ncolumns) {
 	for (int row = 0; row < nrows; row++) {
 		for (int col = 0; col < ncolumns; col++) {
-			printf("%c ", *(*(array + row) + col));
+			printf("%c", *(*(array + row) + col));
 		}
 		printf("\n");
 	}
@@ -59,13 +72,16 @@ void print2DArray(char **array, int nrows, int ncolumns) {
  * @ncolumns number of columns
  * @currentR given cell's row
  * @currentC given cell's column
+ *
+ * @author: Dung (Kevin) Nguyen
  */
-int getNeighbors(char **array, int nrows, int ncolumns, int currentR, int currentC) {
+int getNeighbors(char **array, int nrows, int ncolumns, int currentR,
+		int currentC) {
 	int neighbors = 0;
 	for (int row = currentR - 1; row <= currentR + 1; row++) {
-		for (int col = currentC - 1; col <= ncolumns + 1; col++) {
-			if (row != currentR && col != currentC) {
-				neighbors += getCellVal(array, nrows, ncolumns, currentR, currentC);
+		for (int col = currentC - 1; col <= currentC + 1; col++) {
+			if (row != currentR || col != currentC) {
+				neighbors += getCellVal(array, nrows, ncolumns, row, col);
 			}
 		}
 	}
@@ -80,131 +96,13 @@ int getNeighbors(char **array, int nrows, int ncolumns, int currentR, int curren
  * @columns number of columns
  * @row current row
  * @col current column
+ *
+ * @author Dung (Kevin) Nguyen
  */
 int getCellVal(char **array, int nrows, int ncolumns, int row, int col) {
 	if (row >= 0 && row < nrows && col >= 0 && col < ncolumns) {
-		return *(*(array + row) + col) == 'x' ? 1 : 0;
-	}
-	else return 0;
-}
-
-
-
-
-/**
- * Fill grid with some initial values other than 'x' or 'o'
- * @array given grid
- * @nrows number of rows
- * @ncolumns number of columns
- * @initVal initial value to be set for each cell in grid
- */
-void fillInitGrid(char **array, int nrows, int ncolumns, char initVal) {
-	for (int row = 0; row < nrows; row++) {
-		for (int col = 0; col < ncolumns; col++) {
-			*(*(array + row) + col) = initVal;
-		}
-	}
-}
-
-/**
- *TODO: if a line > the width (columns) then trigger an error
- * Set grid according to configurations given in file
- * @array given grid
- * @nrows number of rows
- * @ncolumns number of columns
- * @fp pointer to the given file
- */
-void setGridFromFile(char **array, int nrows, int ncolumns, FILE *fp) {
-	int c;
-	int curCol = 0;
-	int curRow = 0;
-	do {
-		c = fgetc(fp);
-		if (feof(fp)) break;
-		if (c == '\n') {
-			curRow++;
-			curCol = 0;
-		}
-		else {
-			*(*(array + curRow) + curCol) = c;
-			curCol++;
-		}
-	} while (curRow < nrows && curCol <= ncolumns);
-}
-
-/**
- * Get the longest line's length in the given file
- * @fp the pointer to a given file
- */
-int getMaxLineLength(FILE *fp) {
-	int c;
-	int currentLen;
-	int max = 0;
-
-	do {
-		c = fgetc(fp);
-		if (feof(fp))
-			break;
-		if (c == '\n') {
-			if (currentLen > max) max = currentLen;
-			currentLen = 0;
-		} else {
-			 currentLen++;
-		}
-	} while (1);
-	return max;
-}
-
-/**
- * Get number of lines
- * @fp pointer to the given file
- */
-int getNumLines(FILE *fp) {
-	int c;
-		int numLine = 0;
-
-		while ((c = fgetc(fp)) != EOF) {
-			if (c == '\n') numLine++;
-		}
-		return numLine;
-}
-
-/**
- * Fill up empty spots in the grid
- * @array given grid
- * @nrows number of rows
- * @ncolumns number of columns
- */
-void fillUpGrid(char **array, int nrows, int ncolumns) {
-	for (int row = 0; row < nrows; row++) {
-		for (int col = 0; col < ncolumns; col++) {
-			if(*(*(array + row) + col) == '+') {
-				*(*(array + row) + col) = 'o';
-			}
-		}
-	}
-}
-
-/**
- * @original original grid
- * @centered centered grid
- * @nrows number of rows
- * @ncolumns number of columns
- * @maxWidth maxWidth of grid given in file
- * @maxHeight max height of grid given in file
- */
-void centerGrid(char **original, char **centered, int nrows, int ncolumns, int maxWidth, int maxHeight) {
-	int horizontalDiff = ncolumns - maxWidth;
-	int verticalDiff = nrows - maxHeight;
-
-	int topPadding = verticalDiff / 2;
-	int leftPadding = horizontalDiff / 2;
-
-	for (int row = 0; row < maxHeight; row++) {
-		for (int col = 0; col < maxWidth; col++) {
-			*(*(centered + row + topPadding) + col + leftPadding) =
-					*(*(original + row) + col);
-		}
-	}
+		return *(*(array + row) + col) == LIVE ? 1 : 0;
+	} else
+		return 0;
 }
 
