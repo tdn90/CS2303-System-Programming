@@ -1,6 +1,6 @@
 /** mystruct.h
  * @author Mike Ciaraldi
- * Sample structs
+ * @author Dung (Kevin) Nguyen
 */
 
 // Struct definition:
@@ -17,14 +17,19 @@ struct Employee {
 // Function prototype(s):
 struct Employee *makeEmployee(int birth, int start, const char* name);
 void printEmployee(struct Employee *e);
+
 struct Employee* makeRandEmployee();
 int randInt(int max);
 char *randStr();
 char randLowercase();
 char randUppercase();
+
 struct Employee **getRandListEmployee(int size);
 void printEmployees(struct Employee **list, int count);
+
 void freeArray(struct Employee **list, size_t count);
+
 struct Employee **shallowCopy(struct Employee **list, int size);
+
 struct Employee *deepCopyEmp(struct Employee *e);
 struct Employee **deepCopyList(struct Employee **list, size_t size);
