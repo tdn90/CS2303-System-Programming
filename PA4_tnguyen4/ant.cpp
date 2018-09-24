@@ -19,6 +19,13 @@ bool Ant::isPrey() {
 	return true;
 }
 
+void Ant::setCoords(int row, int col) {
+	this->row = row;
+	this->col = col;
+	stepSurvived++;
+	move_able = false;
+}
+
 bool Ant::readyToBreed() {
 	return stepSurvived >= 3;
 }

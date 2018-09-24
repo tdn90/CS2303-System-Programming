@@ -19,6 +19,7 @@ public:
 	Organism * breed(int new_row, int new_col);
 	bool starved();
 	void eat();
+	void setCoords(int row, int col);
 
 	Doodlebug(int row, int col);
 	~Doodlebug();

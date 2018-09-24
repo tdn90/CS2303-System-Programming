@@ -22,6 +22,14 @@ bool Doodlebug::starved() {
 	return stepSinceLastEaten == 3;
 }
 
+void Doodlebug::setCoords(int row, int col) {
+	this->row = row;
+	this->col = col;
+	stepSurvived++;
+	move_able = false;
+	stepSinceLastEaten++;
+}
+
 void Doodlebug::eat() {
 	stepSinceLastEaten = 0;
 }

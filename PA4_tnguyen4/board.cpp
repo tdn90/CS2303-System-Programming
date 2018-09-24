@@ -266,7 +266,7 @@ void Board::checkBreed(int r, int c) {
 		int *emptyCell = (int *) NULL;
 		emptyCell = getEmptyCell(r, c, emptyCell);
 		if (emptyCell) { // if there is an empty cell
-			grid[r][c]->breed(emptyCell[0], emptyCell[1]);
+			grid[emptyCell[0]][emptyCell[1]] = grid[r][c]->breed(emptyCell[0], emptyCell[1]);
 			if (grid[r][c]->isPrey()) {
 				totalNumAnts++;
 				currentNumAnts++;
@@ -283,6 +283,7 @@ void Board::checkBreed(int r, int c) {
 bool Board::checkStarvation(int r, int c) {
 	if (((Doodlebug *) grid[r][c])->starved()) {
 		delete grid[r][c];
+		grid[r][c] = (Organism *) NULL;
 		currentNumBugs--;
 		return true;
 	}
