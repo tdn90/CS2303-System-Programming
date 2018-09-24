@@ -29,7 +29,7 @@ Board::Board(int dim, long seed, int numAnts, int numBugs) {
 
 
 Organism **Board::getRandomArr(Organism **arr, int numAnts, int numBugs){
-	arr = new Organism**[size * size];
+	arr = new Organism*[size * size];
 	int i = 0;
 	while (numAnts > 0) {
 		arr[i++] = new Ant(0,0); // set default position 0,0
@@ -64,20 +64,23 @@ void Board::swap(Organism **arr, int size, int indexOne, int indexTwo) {
  * TODO: fill this up randomly if time permits
  */
 void Board::fillInitialBoard(int numAnts, int numBugs) {
-	// Fill up the ants first from top left
-	for (int r = 0; r < size && numAnts > 0; r++) {
-		for (int c = 0; c < size && numAnts > 0; c++) {
-			grid[r][c] = new Ant(r, c);
-			numAnts--;
+	Organism **arr = (Organism **) NULL;
+	arr = getRandomArr(arr, numAnts, numBugs);
+
+	int i = 0;
+	for (int r = 0; r < size; r++) {
+		for (int c = 0; c < size; c++) {
+			if (arr[i]) {
+				grid[r][c] = arr[i];
+				grid[r][c]->initCoord(r, c);
+				arr[i] = (Organism *) NULL;
+				i++;
+			}
 		}
 	}
 
-	// Fill up the bugs first from bottom right
-	for (int r = size - 1; r >= 0 && numBugs > 0; r--) {
-		for (int c = size - 1; c >= 0 && numBugs > 0; c--) {
-			grid[r][c] = new Doodlebug(r, c);
-			numBugs--;
-		}
+	for (int k = 0; k < (size * size); k++) {
+		delete arr[k];
 	}
 }
 
