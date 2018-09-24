@@ -82,12 +82,23 @@ int main(int argc, char *argv[]) {
 		return EXIT_FAILURE;
 	}
 
+	std::cout << "-------------------START OF GAME-----------------------\n";
 	// initial the board
-	Board board(gridSize, seed);
-	board.fillInitialBoard(ants, doodlebugs);
+	Board board(gridSize, seed, ants, doodlebugs);
 	board.printBoard();
 
-	std::cout << "\n";
-	board.updateBoard();
-	board.printBoard();
+	int turn = 0;
+	while (turn < time_steps && board.setBoardReady()) {
+		std::cout << "\n" << "Turn " << turn << "\n";
+		board.updateBoard();
+		board.printBoard();
+		std::cout << "Remaining ants: " << board.getCurrentAnts() << "\n";
+		std::cout << "Remaining bugs: " << board.getCurrentBugs() << "\n";
+		turn++;
+	}
+	std::cout << "Total number of ants in game: " << board.getAllAnts() << "\n";
+	std::cout << "Total number of bugs in game: " << board.getAllBugs() << "\n";
+	std::cout << "Remaining ants: " << board.getCurrentAnts() << "\n";
+	std::cout << "Remaining bugs: " << board.getCurrentBugs() << "\n";
 }
+

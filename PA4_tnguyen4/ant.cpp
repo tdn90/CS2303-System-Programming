@@ -7,7 +7,8 @@ Ant::Ant(int row, int col) : Organism(row, col) {
 }
 
 Ant::~Ant(){
-	std::cout << "Delete ant" << std::endl;
+	// deliberately empty
+	std::cout << "Ant was eaten..." << std::endl;
 }
 
 char Ant::draw() {
@@ -23,6 +24,7 @@ bool Ant::readyToBreed() {
 }
 
 Organism * Ant::breed(int new_row, int new_col) {
+	std::cout << "New ant is born!\n";
 	this->stepSurvived = 0; // reset stepSurvived until next breed
 	return new Ant(new_row, new_col);
 }

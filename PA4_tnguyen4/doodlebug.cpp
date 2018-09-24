@@ -7,7 +7,7 @@ Doodlebug::Doodlebug(int f_row, int f_col) : Organism(f_row, f_col){
 }
 
 Doodlebug::~Doodlebug(){
-	std::cout << "Delete doodlebug" << std::endl;
+	std::cout << "Bug starved to death..." << std::endl;
 }
 
 char Doodlebug::draw() {
@@ -31,6 +31,7 @@ bool Doodlebug::readyToBreed() {
 }
 
 Organism * Doodlebug::breed(int new_row, int new_col) {
+	std::cout << "New bug is born!\n";
 	this->stepSurvived = 0; // reset stepSurvived until next breed
 	return new Doodlebug(new_row, new_col);
 }

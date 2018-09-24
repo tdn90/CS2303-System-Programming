@@ -13,7 +13,7 @@ Organism::Organism(int row, int col) {
 	this->row = row;
 	this->col = col;
 	stepSurvived = 0;
-	justMoved = false;
+	move_able = true;
 }
 
 Organism::~Organism() {
@@ -24,9 +24,16 @@ void Organism::setCoords(int row, int col) {
 	this->row = row;
 	this->col = col;
 	stepSurvived++;
+	move_able = false;
 }
 
+bool Organism::canMove() {
+	return move_able;
+}
 
+void Organism::readyToMove() {
+	move_able = true;
+}
 
 
 

@@ -18,7 +18,8 @@
 
 class Board {
 public:
-	Board(int dim, long seed);
+	void fillInitialBoard(int numAnts, int numBugs);
+	Board(int dim, long seed, int numAnts, int numBugs);
 	~Board();
 	void printBoard();
 	int getDim();
@@ -29,9 +30,7 @@ public:
 	int *getAntCell(int row, int col, int *nextCell);
 	bool isAntCell(int row, int col, int nextRow, int nextCol);
 
-	void setCell(int row, int col, Organism * organism);
 	void updateBoard();
-	void fillInitialBoard(int numAnts, int numBugs);
 
 	void checkBreed(int r, int c);
 	bool checkStarvation(int r, int c);
@@ -39,7 +38,17 @@ public:
 	void moveEatAnt(int r, int c, int nextR, int nextC);
 	void moveToEmptyCell(int r, int c, int nextR, int nextC);
 
+	bool setBoardReady();
+	int getAllAnts();
+	int getAllBugs();
+	int getCurrentAnts();
+	int getCurrentBugs();
+
 private:
+	int totalNumAnts;
+	int totalNumBugs;
+	int currentNumAnts;
+	int currentNumBugs;
 	int size;
 	long seed;
 	Organism*** grid;
