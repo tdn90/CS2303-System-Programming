@@ -74,8 +74,8 @@ void Board::fillInitialBoard(int numAnts, int numBugs) {
 				grid[r][c] = arr[i];
 				grid[r][c]->initCoord(r, c);
 				arr[i] = (Organism *) NULL;
-				i++;
 			}
+			i++;
 		}
 	}
 
