@@ -27,6 +27,33 @@ Board::Board(int dim, long seed, int numAnts, int numBugs) {
 	currentNumBugs = numBugs;
 }
 
+
+Organism **Board::getRandomArr(Organism **arr, int numAnts, int numBugs){
+	arr = new Organism**[size * size];
+	int i = 0;
+	while (numAnts > 0) {
+		arr[i++] = new Ant(0,0); // set default position 0,0
+		numAnts--;
+	}
+	while (numBugs > 0) {
+		arr[i++] = new Doodlebug(0,0);
+		numBugs--;
+	}
+
+	for (int j = 0; j < i; j++) {
+		int randomIndex = rand() % (size * size);
+		swap(arr, size*size, j, randomIndex);
+	}
+	return arr;
+}
+
+void Board::swap(Organism **arr, int size, int indexOne, int indexTwo) {
+	Organism * temp = arr[indexOne];
+	arr[indexOne] = arr[indexTwo];
+	arr[indexTwo] = temp;
+}
+
+
 /**
  * Fill up the initial configuration of the board
  * Pre-condition: numAnts + numBugs < total cells in the grid

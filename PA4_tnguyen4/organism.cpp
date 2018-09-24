@@ -28,6 +28,11 @@ void Organism::readyToMove() {
 	move_able = true;
 }
 
+void Organism::initCoord(int row, int col) {
+	this->row = row;
+	this->col = col;
+}
+
 
 
 

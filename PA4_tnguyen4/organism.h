@@ -14,6 +14,7 @@ public:
 	virtual ~Organism(); //virtual destructor
 	void readyToMove();
 	bool canMove();
+	void initCoord(int row, int col);
 
 	virtual void setCoords(int row, int col) = 0;
 	virtual char draw() = 0;

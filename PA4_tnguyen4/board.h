@@ -44,6 +44,9 @@ public:
 	int getCurrentAnts();
 	int getCurrentBugs();
 
+	Organism **getRandomArr(Organism **arr, int numAnts, int numBugs);
+	void swap(Organism **arr, int size, int indexOne, int indexTwo);
+
 private:
 	int totalNumAnts;
 	int totalNumBugs;
