@@ -87,8 +87,8 @@ int main(int argc, char *argv[]) {
 	Board board(gridSize, seed, ants, doodlebugs);
 	board.printBoard();
 
-	int turn = 0;
-	while (turn < time_steps && board.setBoardReady()) {
+	int turn = 1;
+	while (turn <= time_steps && board.setBoardReady()) {
 		std::cout << "\n" << "Turn " << turn << "\n";
 		board.updateBoard();
 		board.printBoard();
