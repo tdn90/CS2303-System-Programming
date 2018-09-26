@@ -379,7 +379,7 @@ void Board::updateBoard() {
 						moveToEmptyCell(r, c, emptyCell[0], emptyCell[1]);
 						delete[] emptyCell; // prevent memory leak
 					} else { //get stuck, cannot breed either
-						grid[r][c]->setCoords(r, c); //update stepSurvived
+						grid[r][c]->move(r, c); //update stepSurvived
 						checkStarvation(r, c); // if starved then kill it
 					}
 				} else { // there is some ant. Eat it! Yummy!
@@ -408,7 +408,7 @@ void Board::updateBoard() {
 					checkBreed(emptyCell[0], emptyCell[1]); // see if breed
 					delete[] emptyCell; //done with this, delete to prevent memory leak
 				} else { // oops! Get stuck here!
-					grid[r][c]->setCoords(r, c); // update stepSurvived
+					grid[r][c]->move(r, c); // update stepSurvived
 				}
 			}
 		}
@@ -427,7 +427,7 @@ void Board::moveEatAnt(int r, int c, int nextR, int nextC) {
 	currentNumAnts--;
 	grid[nextR][nextC] = grid[r][c]; // move doodlebug to new grid
 	grid[r][c] = (Organism *) NULL; // old grid turns empty
-	grid[nextR][nextC]->setCoords(nextR, nextC); // increase survival steps
+	grid[nextR][nextC]->move(nextR, nextC); // increase survival steps
 	((Doodlebug *) grid[nextR][nextC])->eat(); // reset lastEaten (just ate)
 	checkBreed(nextR, nextC); // if breed then make new doodlebug
 }
@@ -442,7 +442,7 @@ void Board::moveEatAnt(int r, int c, int nextR, int nextC) {
 void Board::moveToEmptyCell(int r, int c, int nextR, int nextC) {
 	grid[nextR][nextC] = grid[r][c]; // move to new empty grid
 	grid[r][c] = (Organism *) NULL; // set old grid to empty
-	grid[nextR][nextC]->setCoords(nextR, nextC); // increase survival steps
+	grid[nextR][nextC]->move(nextR, nextC); // increase survival steps
 	// if it is a bug, check starvation first and then check breed
 	if (!grid[nextR][nextC]->isPrey() && !checkStarvation(nextR, nextC))
 		checkBreed(nextR, nextC);

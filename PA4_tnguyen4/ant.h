@@ -17,7 +17,7 @@ public:
 	bool isPrey();
 	bool readyToBreed();
 	Organism * breed(int new_row, int new_col);
-	void setCoords(int row, int col);
+	void move(int row, int col);
 
 	Ant(int row, int col);
 	~Ant();

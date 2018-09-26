@@ -54,7 +54,7 @@ bool Doodlebug::starved() {
  * so a new coord is set, and prevent the Doodlebug from being moved
  * again in the same turn
  */
-void Doodlebug::setCoords(int row, int col) {
+void Doodlebug::move(int row, int col) {
 	this->row = row;
 	this->col = col;
 	stepSurvived++;

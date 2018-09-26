@@ -46,7 +46,7 @@ bool Ant::isPrey() {
  * so a new coord is set, and prevent the ant from being moved
  * again in the same turn
  */
-void Ant::setCoords(int row, int col) {
+void Ant::move(int row, int col) {
 	this->row = row;
 	this->col = col;
 	stepSurvived++;

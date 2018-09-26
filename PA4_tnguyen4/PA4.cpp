@@ -86,6 +86,7 @@ int main(int argc, char *argv[]) {
 	std::cout << "pause: " << pause << std::endl;
 
 	std::cout << "-------------------START OF GAME-----------------------\n";
+	long initSeed = seed;
 	srand(time(&seed)); // set different seed for random generator
 	// Initialize the board
 	Board *board = new Board(gridSize, ants, doodlebugs);
@@ -110,11 +111,15 @@ int main(int argc, char *argv[]) {
 		std::cout << "Remaining bugs: " << board->getCurrentBugs() << "\n";
 		turn++;
 	}
+	std::cout << "-----------FINAL INFORMATION-------------" << std::endl;
+	std::cout << "./PA1 " << gridSize << " " << doodlebugs << " " << ants << " " << time_steps << " " << initSeed << " " << pause << std::endl;
+	std::cout << "Number of steps simulated: " << time_steps << std::endl;
 	std::cout << "Total number of ants in game: " << board->getAllAnts() << "\n";
 	std::cout << "Total number of bugs in game: " << board->getAllBugs() << "\n";
 	std::cout << "Remaining ants: " << board->getCurrentAnts() << "\n";
 	std::cout << "Remaining bugs: " << board->getCurrentBugs() << "\n";
-
+	std::cout << "-----------FINAL GRID CONFIGURATION-------------" << std::endl;
+	board->printBoard();
 	delete board; // done with program, free the memory on the heap
 }
 
