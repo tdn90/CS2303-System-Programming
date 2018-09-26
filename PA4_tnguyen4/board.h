@@ -18,13 +18,14 @@
 #include "ant.h"
 #include "doodlebug.h"
 
+#define EMPTY_CELL ' '
+
 class Board {
 public:
-	Board(int dim, long seed, int numAnts, int numBugs);
+	Board(int dim, int numAnts, int numBugs);
 	~Board();
 
 	void printBoard();
-	int getDim();
 	int getAllAnts();
 	int getAllBugs();
 	int getCurrentAnts();
@@ -33,14 +34,12 @@ public:
 	void updateBoard();
 	bool setBoardReady();
 
-
 private:
 	int totalNumAnts;
 	int totalNumBugs;
 	int currentNumAnts;
 	int currentNumBugs;
 	int size;
-	long seed;
 	Organism*** grid;
 
 	Organism **getRandomArr(int numAnts, int numBugs);

@@ -2,6 +2,11 @@
 #include "board.h"
 
 /**
+ * Board.cpp
+ * @author Dung (Kevin) Nguyen
+ */
+
+/**
  * Constructor for creating a board.
  * Pre-condition: numAnts + numBugs < size*size
  * @param dim height and width of the square grid
@@ -10,10 +15,10 @@
  * @param numBugs given number of bugs to be filled in the board
  * @return a pointer to a block of memory allocated for the new board
  */
-Board::Board(int dim, long seed, int numAnts, int numBugs) {
+Board::Board(int dim, int numAnts, int numBugs) {
 	size = dim; // set dimension of the board
-	this->seed = seed; // set initial grid
 
+	// set initial grid
 	// declare + allocate memory for 'Organism***'
 	grid = new Organism**[size];
 
@@ -165,18 +170,10 @@ void Board::printBoard() {
 			if (grid[r][c]) // if there is organism, print out its representation
 				std::cout << grid[r][c]->draw();
 			else // otherwise the cell is empty
-				std::cout << '-';
+				std::cout << EMPTY_CELL;
 		}
 		std::cout << "\n";
 	}
-}
-
-/**
- * Get dimension of the grid
- * @return the width / height of the square grid
- */
-int Board::getDim() {
-	return size;
 }
 
 /**
@@ -251,8 +248,10 @@ int *Board::getEmptyCell(int row, int col) {
 	}
 
 	// if no empty cell is found, then return null pointer
-	if (numValidMove == 0)
+	if (numValidMove == 0) {
 		return (int *) NULL;
+	}
+
 
 	// otherwise allocate memory and create a coordinate array
 	int *nextCell = new int[2];
@@ -321,8 +320,10 @@ int *Board::getAntCell(int row, int col) {
 	}
 
 	// no valid cell that contains ant are found, return null pointer
-	if (numAntCell == 0)
+	if (numAntCell == 0) {
 		return (int *) NULL;
+	}
+
 
 	// if there is at least one available, allocate memory for its coordinate
 	int *nextCell = new int[2];
@@ -376,6 +377,7 @@ void Board::updateBoard() {
 					int *emptyCell = getEmptyCell(r, c);
 					if (emptyCell) { // there is an empty cell, move there
 						moveToEmptyCell(r, c, emptyCell[0], emptyCell[1]);
+						delete[] emptyCell; // prevent memory leak
 					} else { //get stuck, cannot breed either
 						grid[r][c]->setCoords(r, c); //update stepSurvived
 						checkStarvation(r, c); // if starved then kill it
@@ -384,6 +386,7 @@ void Board::updateBoard() {
 					int nextRow = antCell[0];
 					int nextCol = antCell[1];
 					moveEatAnt(r, c, nextRow, nextCol);
+					delete[] antCell; // prevent memory leak
 				}
 			}
 		}
@@ -403,6 +406,7 @@ void Board::updateBoard() {
 				if (emptyCell) { // found an empty cell, jump there
 					moveToEmptyCell(r, c, emptyCell[0], emptyCell[1]);
 					checkBreed(emptyCell[0], emptyCell[1]); // see if breed
+					delete[] emptyCell; //done with this, delete to prevent memory leak
 				} else { // oops! Get stuck here!
 					grid[r][c]->setCoords(r, c); // update stepSurvived
 				}
@@ -423,8 +427,8 @@ void Board::moveEatAnt(int r, int c, int nextR, int nextC) {
 	currentNumAnts--;
 	grid[nextR][nextC] = grid[r][c]; // move doodlebug to new grid
 	grid[r][c] = (Organism *) NULL; // old grid turns empty
-	((Doodlebug *) grid[nextR][nextC])->eat(); // reset lastEaten (just ate)
 	grid[nextR][nextC]->setCoords(nextR, nextC); // increase survival steps
+	((Doodlebug *) grid[nextR][nextC])->eat(); // reset lastEaten (just ate)
 	checkBreed(nextR, nextC); // if breed then make new doodlebug
 }
 
@@ -465,6 +469,7 @@ void Board::checkBreed(int r, int c) {
 				totalNumBugs++;
 				currentNumBugs++;
 			}
+			delete[] emptyCell;
 		}
 	}
 }

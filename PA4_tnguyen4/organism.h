@@ -1,6 +1,9 @@
 /*
  * organism.h
  *
+ * This is an abstract class
+ * Virtual functions will be implemented in Ant and Doodlebug
+ *
  * Created on Sep 22, 2018
  * 	Author: Dung (Kevin) Nguyeon
  */
@@ -11,7 +14,7 @@
 class Organism {
 public:
 	Organism(int row, int col);
-	virtual ~Organism(); //virtual destructor
+	virtual ~Organism();
 	void readyToMove();
 	bool canMove();
 	void initCoord(int row, int col);
