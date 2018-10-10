@@ -34,6 +34,14 @@ double Customer::getAllTime() {
 	return endTime - arrivalTime;
 }
 
+double Customer::getServiceTime() {
+	return this->endTime - this->serviceStartTime;
+}
+
+double Customer::getWaitTime() {
+	return this->serviceStartTime - this->arrivalTime;
+}
+
 Customer::~Customer() {
 	// nothing needed, since no pointer in fields
 }

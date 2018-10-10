@@ -18,6 +18,8 @@ public:
 	double getAllTime();
 	void renew();
 	double getArrTime();
+	double getServiceTime();
+	double getWaitTime();
 private:
 	double arrivalTime;
 	double serviceStartTime;
