@@ -13,24 +13,24 @@ $(TARGET): $(OBJS)
 	
 qSim.o: Customer.h Teller.h CustomerEvent.h TellerEvent.h Event.h TellerQueue.h EventQueue.h
 	$(CXX) -c $(CXXFLAGS) qSim.cpp
-	
-EventQueue.o: Event.h
-	$(CXX) -c $(CXXFLAGS) EventQueue.cpp
-
-TellerQueue.o: Customer.h
-	$(CXX) -c $(CXXFLAGS) TellerQueue.cpp
 
 TellerEvent.o: Event.h Teller.h
 	$(CXX) -c $(CXXFLAGS) TellerEvent.cpp
 	
+Teller.o: Teller.h 
+	$(CXX) -c $(CXXFLAGS) Teller.cpp
+	
 CustomerEvent.o: Customer.h Event.h
 	$(CXX) -c $(CXXFLAGS) CustomerEvent.cpp
-
-Event.o: Event.h TellerQueue.h EventQueue.h 
+	
+EventQueue.o: Event.h
+	$(CXX) -c $(CXXFLAGS) EventQueue.cpp
+	
+Event.o: Event.h TellerQueue.h 
 	$(CXX) -c $(CXXFLAGS) Event.cpp
 	
-Teller.o: Teller.h
-	$(CXX) -c $(CXXFLAGS) Teller.cpp
+TellerQueue.o: Customer.h
+	$(CXX) -c $(CXXFLAGS) TellerQueue.cpp
 	
 Customer.o: Customer.h
 	$(CXX) -c $(CXXFLAGS) Customer.cpp

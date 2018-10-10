@@ -6,17 +6,17 @@
 
 #ifndef TELLERQUEUE_H_
 #define TELLERQUEUE_H_
-
+#include <iostream>
 #include "Customer.h"
 
 class TellerQueue {
 public:
 	TellerQueue();
 	~TellerQueue();
-
 	void add(Customer *c);
 	Customer * remove();
 	int size();
+
 private:
 	class TQNode {
 	public:
@@ -32,7 +32,6 @@ private:
 		Customer *customer;
 		TQNode *next;
 	};
-
 	int length;
 	TQNode *head;
 	TQNode *tail;

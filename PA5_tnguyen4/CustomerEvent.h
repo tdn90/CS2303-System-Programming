@@ -14,11 +14,10 @@ class CustomerEvent:public Event {
 public:
 	CustomerEvent(double t, Customer *customer);
 	~CustomerEvent();
+	void act(TellerQueue **lines, int size, EventQueue *events);
 
-	void act(TellerQueue **lines, int size, int curIndex, EventQueue *eventQueue);
 private:
-	void getInLine(TellerQueue **lines);
-	void leaveBank();
+	TellerQueue * getCustomerLine(TellerQueue **lines, int size);
 	Customer *customer;
 };
 

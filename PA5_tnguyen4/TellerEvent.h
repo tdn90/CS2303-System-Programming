@@ -15,10 +15,9 @@ public:
 	TellerEvent(double t, Teller *teller);
 	~TellerEvent();
 
-	void act(TellerQueue **lines, int size, int curIndex, EventQueue *eventQueue);
+	void act(TellerQueue **lines, int size, EventQueue *eventQueue);
 private:
 	Teller *teller;
-	void decide(TellerQueue **lines, int curIndex, EventQueue *eventQueue);
 };
 
 #endif

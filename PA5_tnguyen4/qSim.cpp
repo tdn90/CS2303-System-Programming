@@ -15,6 +15,40 @@
 using std::cout;
 using std::endl;
 
+void getCustomerStatistics(Customer **arr, int size) {
+	for (int i = 0; i < size; i++) {
+		cout << "Customer " << i << ": " << arr[i]->getAllTime() << "\n";
+	}
+}
+
+void getTellerStatistics(Teller **arr, int size) {
+	for (int i = 0; i < size; i++) {
+		cout << "Idle time for teller " << i << ": " << arr[i]->getIdleTime() << "\n";
+		cout << "Service time for teller " << i << ": " << arr[i]->getServiceTime() << "\n";
+	}
+}
+
+void renewTellers(Teller **arr, int size, int mainLine) {
+	for (int i = 0; i < size; i++) {
+		arr[i]->renew(mainLine);
+	}
+}
+
+void renewCustomers(Customer **arr, int size) {
+	for (int i = 0; i < size; i++) {
+		arr[i]->renew();
+	}
+}
+
+
+
+bool isTerminateState(Customer **arr, int size) {
+	for (int i = 0; i < size; i++) {
+		if (!arr[i]->isDone()) return false;
+	}
+	return true;
+}
+
 int main(int argc, char *argv[]) {
 	int customers; // keep track of the number of customers
 	int tellers; // keep track of number of tellers
@@ -39,16 +73,77 @@ int main(int argc, char *argv[]) {
 	if (argc == 6) seed = atol(argv[5]);
 
 	// set up random generator
-	if (argc == 5) srand(seed);
+	if (argc == 6) srand(seed);
 	else srand(time(NULL));
 
-	Customer *listOfCust[customers];
-	// Make the customers
+	cout << "Customers: " <<  customers <<  "\n";
+	cout <<  "Tellers: " <<  tellers <<  "\n";
+	cout <<  "Simulation Time: " <<  simulationTime <<  "\n";
+	cout <<  "averageServiceTime: " <<  averageServiceTime << "\n";
+
+	// --------------------- SITUATION 1: MULTIPLE LINES-------------------------
+	EventQueue *events = new EventQueue();
+	Customer * arrOfCust[customers];
 	for (int i = 0; i < customers; i++) {
-		double arrTime = simulationTime * rand() / double(RAND_MAX);
+		double randArrTime = simulationTime * rand() / double(RAND_MAX);
+		Customer *newCust = new Customer(randArrTime);
+		arrOfCust[i] = newCust;
+		Event *custE = new CustomerEvent(randArrTime, newCust);
+		events->add(custE);
 	}
 
-	Teller *listOfTel[tellers];
+	Teller *arrOfTellers[tellers];
+
+
+
+	for (int i = 0; i < tellers; i++) {
+		Teller *tel = new Teller(i, averageServiceTime);
+		arrOfTellers[i] = tel;
+		Event *telE = new TellerEvent(0, tel);
+		events->add(telE);
+	}
+
+	TellerQueue *lines[tellers];
+	for (int i = 0; i < tellers; i++) {
+		lines[i] = new TellerQueue();
+	}
+
+	while (events->size() > 0) {
+		Event *currentE = events->remove();
+		currentE->act(lines, tellers, events);
+		if (isTerminateState(arrOfCust, customers)) break;
+	}
+
+	getCustomerStatistics(arrOfCust, customers);
+	getTellerStatistics(arrOfTellers, tellers);
+
+
+	// ------------------ SITUATION 2: ONE FOR ALL -----------------
+	EventQueue *events2 = new EventQueue();
+	renewTellers(arrOfTellers, tellers, 0);
+	renewCustomers(arrOfCust, customers);
+	for (int i = 0; i < customers; i++) {
+		Customer *curC = arrOfCust[i];
+		Event *custE = new CustomerEvent(curC->getArrTime(), curC);
+		events2->add(custE);
+	}
+
+	for (int i = 0; i < tellers; i++) {
+		Event *telE = new TellerEvent(0, arrOfTellers[i]);
+		events2->add(telE);
+	}
+
+	TellerQueue *lines2[1];
+	lines2[0] = new TellerQueue();
+	while (events->size() > 0) {
+		Event *currentE = events->remove();
+		currentE->act(lines2, 1, events);
+		if (isTerminateState(arrOfCust, customers))
+			break;
+	}
+
+	getCustomerStatistics(arrOfCust, customers);
+	getTellerStatistics(arrOfTellers, tellers);
 
 	return 1;
 }

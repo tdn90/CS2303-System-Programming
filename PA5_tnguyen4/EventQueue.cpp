@@ -1,11 +1,14 @@
-#include "EventQueue.h"
 #include "Event.h"
+#include "EventQueue.h"
 
 EventQueue::EventQueue() {
 	this->head = NULL;
 	this->length = 0;
 }
 
+/**
+ * @return the size of this event queue
+ */
 int EventQueue::size() {
 	return length;
 }
@@ -13,7 +16,6 @@ int EventQueue::size() {
 /**
  * Add the event according to its occurring time
  * @param e Event to be added
- *
  */
 void EventQueue::add(Event *e) {
 	EQNode *newNode = new EQNode(e);
@@ -32,7 +34,7 @@ void EventQueue::add(Event *e) {
 		/* stop before the event that is later
 		 * than the added event
 		 */
-		while (!cursor->next && cursor->next->e->getTime() < newNode->e->getTime()) {
+		while (cursor->next && cursor->next->e->getTime() <= newNode->e->getTime()) {
 			cursor = cursor->next;
 		}
 		/*
@@ -54,7 +56,6 @@ void EventQueue::add(Event *e) {
 
 /**
  * Remove the event at the head of this queue (earliest event)
- * Trigger the action of the event
  * @return the Event being removed, NULL if queue is empty
  */
 Event * EventQueue::remove() {
@@ -70,4 +71,9 @@ Event * EventQueue::remove() {
 		length--;
 		return result;
 	}
+}
+
+//TODO: might need to loop through all Nodes and delete one by one
+EventQueue::~EventQueue() {
+
 }

@@ -1,5 +1,4 @@
 #include "TellerQueue.h"
-#include <iostream>
 
 TellerQueue::TellerQueue() {
 	this->head = NULL;
@@ -12,10 +11,9 @@ TellerQueue::TellerQueue() {
  * @param c Customer to be added
  */
 void TellerQueue::add (Customer *c) {
-	length++;
+	TQNode *newNode = new TQNode(c); // create a pointer to a new TQNode
 	// Queue is empty
-	TQNode *newNode = new TQNode(c);
-	if (!head && head == tail) {
+	if (!head) {
 		head = tail = newNode;
 	}
 	// Queue has one element, add to the end
@@ -23,15 +21,18 @@ void TellerQueue::add (Customer *c) {
 		tail->next = newNode;
 		tail = newNode;
 	}
+	length++;
 }
 
 /**
  * Remove the Customer at the head of this queue
+ * Warning: user should have checked whether this queue is empty before
+ * calling this function.
  * @return Pointer to the customer removed, or NULL if Queue is empty
  */
 Customer * TellerQueue::remove() {
 	// remove from empty queue
-	if (!head && head == tail) return NULL;
+	if (!head) return NULL;
 	else {
 		Customer *result = head->customer;
 		if (length == 1) { // only one element, set both to null
@@ -52,9 +53,9 @@ int TellerQueue::size() {
 	return this->length;
 }
 
+//TODO
 TellerQueue::~TellerQueue() {
-	delete head;
-	delete tail;
+
 }
 
 

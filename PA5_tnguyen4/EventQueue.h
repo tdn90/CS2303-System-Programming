@@ -19,15 +19,16 @@ class Event;
 class EventQueue {
 public:
 	EventQueue();
+	~EventQueue();
 
 	int size();
-	void add(Event * e);
-	Event * remove();
+	void add(Event *e);
+	Event *remove();
 
 private:
 	class EQNode {
 	public:
-		EQNode(Event * e) {
+		EQNode(Event *e) {
 			this->e = e;
 			this->next = NULL;
 		};
