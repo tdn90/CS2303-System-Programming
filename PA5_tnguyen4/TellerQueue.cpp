@@ -1,5 +1,14 @@
+/**
+ * TellerQueue.cpp
+ *
+ * @author Dung (Kevin) Nguyen
+ */
+
 #include "TellerQueue.h"
 
+/**
+ * Constructor
+ */
 TellerQueue::TellerQueue() {
 	this->head = NULL;
 	this->tail = NULL;
@@ -53,9 +62,11 @@ int TellerQueue::size() {
 	return this->length;
 }
 
-//TODO
+/**
+ * Destructor
+ */
 TellerQueue::~TellerQueue() {
-
+	// deliberately empty, since we don't want to delete the Customers
 }
 
 

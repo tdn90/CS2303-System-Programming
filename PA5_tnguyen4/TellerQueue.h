@@ -1,8 +1,11 @@
 /**
  * TellerQueue.h
  *
+ * Simple FIFO Queue
+ *
  * @author Dung (Kevin) Nguyen
  */
+
 
 #ifndef TELLERQUEUE_H_
 #define TELLERQUEUE_H_
