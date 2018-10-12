@@ -1,0 +1,26 @@
+tnguyen4@Xubuntu-AY2018-19:~/Documents/cs2303/PA5_tnguyen4$ ./qSim 200 10 100 2.1
+Initial Configuration: 
+Customers: 200
+Tellers: 10
+Simulation Time: 100
+averageServiceTime: 2.1
+
+--------------SIMULATION 1--------------
+Total number of customers served: 200
+Number of tellers: 10
+Type of Queuing: One line per Teller
+Average amount of time a customer spent in the bank: 2.33388 minutes
+Standard deviation: 1.67878 minutes
+Maximum wait time for customers: 4.58341 minutes
+Total amount of teller service time: 404.043 minutes
+Total amount of teller idle time: 968.099 minutes
+
+--------------SIMULATION 2--------------
+Total number of customers served: 200
+Number of tellers: 10
+Type of Queuing: One common line for all tellers
+Average amount of time a customer spent in the bank: 2.25561 minutes
+Standard deviation: 1.31926 minutes
+Maximum wait time for customers: 2.56459 minutes
+Total amount of teller service time: 413.257 minutes
+Total amount of teller idle time: 930.162 minutes

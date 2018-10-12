@@ -85,10 +85,10 @@ void getFinalStatistics(Customer **arr1, int size1, Teller **arr2, int size2, in
 	}
 
 	double avg = averageTimeInBank(arr1, size1);
-	cout << "Average amount of time a customer spent in the bank: " << avg << endl;
-	cout << "Standard deviation: " << stdev(arr1, size1, avg) << endl;
+	cout << "Average amount of time a customer spent in the bank: " << avg << " minutes"<< endl;
+	cout << "Standard deviation: " << stdev(arr1, size1, avg) << " minutes" << endl;
 
-	cout << "Maximum wait time for customers: " << getMaxWaitTime(arr1, size1) << endl;
+	cout << "Maximum wait time for customers: " << getMaxWaitTime(arr1, size1) << " minutes" << endl;
 
 	double totalServiceTime = 0;
 	double totalIdleTime = 0;
@@ -97,8 +97,8 @@ void getFinalStatistics(Customer **arr1, int size1, Teller **arr2, int size2, in
 		totalServiceTime += arr2[i]->getServiceTime();
 		totalIdleTime += arr2[i]->getIdleTime();
 	}
-	cout << "Total amount of teller service time: " << totalServiceTime << endl;
-	cout << "Total amount of teller idle time: " << totalIdleTime << endl;
+	cout << "Total amount of teller service time: " << totalServiceTime << " minutes" << endl;
+	cout << "Total amount of teller idle time: " << totalIdleTime << " minutes" << endl;
 }
 
 
@@ -163,7 +163,6 @@ int main(int argc, char *argv[]) {
 		return EXIT_FAILURE;
 	}
 
-	//TODO: maybe add more checks to user's input if required
 	if (argc >= 5) {
 		customers = atoi(argv[1]);
 		tellers = atoi(argv[2]);
@@ -171,6 +170,11 @@ int main(int argc, char *argv[]) {
 		averageServiceTime = atof(argv[4]);
 	}
 	if (argc == 6) seed = atol(argv[5]);
+
+	if (customers < 0 || tellers < 0 || simulationTime < 0 || averageServiceTime < 0) {
+		cout << "Invalid arguments!" << endl;
+		return EXIT_FAILURE;
+	}
 
 	// set up random generator
 	if (argc == 6) srand(seed);
