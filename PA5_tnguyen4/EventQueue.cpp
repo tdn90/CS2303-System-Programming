@@ -1,6 +1,15 @@
+/**
+ * EventQueue.cpp
+ *
+ * @author Dung (Kevin) Nguyen
+ */
+
 #include "Event.h"
 #include "EventQueue.h"
 
+/**
+ * Constructor
+ */
 EventQueue::EventQueue() {
 	this->head = NULL;
 	this->length = 0;
@@ -62,10 +71,10 @@ Event * EventQueue::remove() {
 	if (!head) return NULL; // queue is empty
 	else {
 		Event *result = head->e;
-		if (length == 1) {
+		if (length == 1) { // only one element, simply set head to null
 			head = NULL;
 		}
-		else {
+		else { // more than one, then move head forward
 			head = head->next;
 		}
 		length--;
@@ -73,7 +82,9 @@ Event * EventQueue::remove() {
 	}
 }
 
-//TODO: might need to loop through all Nodes and delete one by one
+/**
+ * Destructor
+ */
 EventQueue::~EventQueue() {
 
 }
