@@ -28,7 +28,7 @@ public:
 	double getIdleTime();
 	void renew(int mainLine);
 private:
-	int mainLine;
+	int mainLine; // main service line of this Teller (common or separate)
 	double idleTime; // this will be in minutes
 	double serviceTime; // also in minutes
 	bool inService;
@@ -38,6 +38,7 @@ private:
 
 	TellerQueue * checkOthers(TellerQueue **lines, int size);
 	double randServiceT();
+	void addFutureEvents(int startTime, Customer *c, EventQueue *eventQueue);
 };
 
 #endif
