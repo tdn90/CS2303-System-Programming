@@ -28,6 +28,8 @@ This CLI (Command Line Interface) program will allow the user to simulate John C
 
 [Learn More](https://github.com/tdn90/CS2303-System-Programming/tree/master/assignment2)
 
+[Online Demo](https://bitstorm.org/gameoflife/) to compare result
+
 ### Sample output: 
 Run with: 
     `./life 10 10 10 blinker.txt y y`
