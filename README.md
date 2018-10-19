@@ -10,25 +10,25 @@
 
 ## Demos
 
-### Gregorian Calendar Printer
-#### Description
+## Gregorian Calendar Printer
+### Description
 This CLI (Command Line Interface) program will display a twelve month calendar for an arbitrary year after year 1582.
 
 [Learn More](https://github.com/tdn90/CS2303-System-Programming/tree/master/assignment1)
 
-#### Sample output 
+### Sample output 
 |                |                 |                 |
 |:--------------:|:---------------:|:---------------:|
 |![](demo/Calendar1.PNG)|![](demo/Calendar2.PNG)|![](demo/Calendar3.PNG)
 
 
-### Game Of Life
-#### Description
+## Game Of Life
+### Description
 This CLI (Command Line Interface) program will allow the user to simulate John Conway's Game of Life on the console / command line interface (ex: BASH), within the grid that is customized by the user.
 
 [Learn More](https://github.com/tdn90/CS2303-System-Programming/tree/master/assignment2)
 
-#### Sample output: 
+### Sample output: 
 Run with: 
     `./life 10 10 10 blinker.txt y y`
 
@@ -37,8 +37,8 @@ Run with:
 |![](demo/GOL1.PNG)|![](demo/GOL2.PNG)|![](demo/GOL3.PNG)
 
 
-### String Library Functions implementation
-#### Functions implemented
+## String Library Functions implementation
+### Functions implemented
 1. size_t mystrlen1(const char* s);
 2. size_t mystrlen2(const char* s);
 3. char* mystrdup1(const char* src);
@@ -51,11 +51,11 @@ Run with:
 
 [Learn More](https://github.com/tdn90/CS2303-System-Programming/tree/master/PA3A_tnguyen4)
 
-### Employee Structure Implementation
-#### Description
+## Employee Structure Implementation
+### Description
 Implement and test functions related to a newly created Employee struct in C.
 
-#### Functions implemented for Employee struct:
+### Functions implemented for Employee struct:
 1. struct Employee makeEmployee(int birth, int start, const char name);
 2. void printEmployee(struct Employee *e);
 3. struct Employee* makeRandEmployee();
@@ -72,13 +72,13 @@ Implement and test functions related to a newly created Employee struct in C.
 
 [Learn More](https://github.com/tdn90/CS2303-System-Programming/tree/master/PA3B_tnguyen4)
 
-### Predator-prey simulation
-#### Description
+## Predator-prey simulation
+### Description
 Implement a simple 2D predator-prey simulation using derived classes and virtual functions in C++.
 
 [Learn More](https://github.com/tdn90/CS2303-System-Programming/tree/master/PA4_tnguyen4)
 
-#### Sample output: 
+### Sample output: 
 Run with: 
     `./PA4 20 200 200 20 2 1`
 
@@ -89,8 +89,8 @@ Run with:
 |![](demo/PA4_5.PNG)|![](demo/PA4_6.PNG)|
 
 
-### Event Driven Simulation
-#### Description
+## Event Driven Simulation
+### Description
 An event-driven simulation is a computer program that mimics the behavior of people or objects in a system in response to events that occur at certain times.
 
 Specifically, this program will simulate a simply, daily activity of people in a Bank.
@@ -107,7 +107,7 @@ The major activities that we are tracking are:
 
 [Learn More](https://github.com/tdn90/CS2303-System-Programming/tree/master/PA5_tnguyen4)
 
-#### Purpose
+### Purpose
 1. Measure the average amount of time people spend between arriving at the bank and leaving the bank.
 2. Compare the efficiency between two possible bank setup:
     - One customer line for each teller.
